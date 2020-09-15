@@ -2,11 +2,6 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: ldap-config
-  namespace: grafana
-  selfLink: /api/v1/namespaces/grafana/configmaps/ldap-config
-  uid: 9a20b6a8-5ad3-407d-a490-7aabc6c0e207
-  resourceVersion: '475211'
-  creationTimestamp: '2020-09-15T10:23:21Z'
 data:
   ldap.toml: >
     [[servers]]
@@ -27,10 +22,8 @@ data:
     surname = "sn"
     email = "mail"
     name = "uid"
-
-
-    # Ce test ne peut pas etre appliqué dans ma configuration, pas d'attribut
-    memeberOf dans ldap
+    
+    # Optional, otherwise all members are viewrs, possible value Viewer, Admin
     [[servers.group_mappings]]
     group_dn = "*"
     org_role = "Editor"
