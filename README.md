@@ -16,14 +16,15 @@ Once resources deployed, Ldap can be accessed with "cn=admin,dc=example,dc=com"/
 echo https://$(oc get route ldap-admin -n ldap -o jsonpath='{.spec.host}')
 </pre>
 
+Please notice that users as erin, vanessa, etc. have password 'admin    ' with 4 escapes.
+
 ## Step 4: Create grafana instance from manifests/grafana first, then add role and get token to be used in datasource in order to scrape openshift thanos metrics
 <pre>
 oc adm policy add-cluster-role-to-user cluster-monitoring-view -z grafana-serviceaccount
 oc serviceaccounts get-token grafana-serviceaccount
 </pre>
 
-Create ldap namespace, and deploy manifests in manifests/ldap.
-Once manifests deployed you can access ldap as admin using the route
-Please notice that users as erin, vanessa, etc. have password 'admin    ' with 4 escapes.
+Then place token in grafana-datasource.yaml.
+
 
 With the following configuration, users can access ldap as Editors, and admin can create teams, and folders directly in grafana to configure users. Meanwhile, notice that grafana instance is stateless.
