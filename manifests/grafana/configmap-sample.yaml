@@ -1,0 +1,36 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ldap-config
+  namespace: grafana
+  selfLink: /api/v1/namespaces/grafana/configmaps/ldap-config
+  uid: 9a20b6a8-5ad3-407d-a490-7aabc6c0e207
+  resourceVersion: '475211'
+  creationTimestamp: '2020-09-15T10:23:21Z'
+data:
+  ldap.toml: >
+    [[servers]]
+    host = "ldap.ldap.svc"
+    port = 389
+    use_ssl = false
+    start_tls = false
+    ssl_skip_verify = false
+    bind_dn = "cn=admin,dc=example,dc=com"
+    bind_password = 'admin'
+    search_filter = "(uid=%s)"
+    search_base_dns = ["ou=Users,dc=example,dc=com"]
+    group_search_base_dns = ["ou=Groups,dc=example,dc=org"]
+
+
+    [servers.attributes]
+    username = "uid"
+    surname = "sn"
+    email = "mail"
+    name = "uid"
+
+
+    # Ce test ne peut pas etre appliqué dans ma configuration, pas d'attribut
+    memeberOf dans ldap
+    [[servers.group_mappings]]
+    group_dn = "*"
+    org_role = "Editor"
