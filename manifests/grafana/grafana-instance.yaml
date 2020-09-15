@@ -1,0 +1,25 @@
+apiVersion: integreatly.org/v1alpha1
+kind: Grafana
+metadata:
+  name: grafana
+spec:
+  config:
+    auth.ldap:
+      config_file: /etc/grafana-configmaps/ldap-config/ldap.toml
+      enabled: true
+    log:
+      level: warn
+      mode: console
+    security:
+      admin_password: admin
+      admin_user: admin
+  configMaps:
+    - ldap-config
+  dashboardLabelSelector:
+    - matchExpressions:
+        - key: app
+          operator: In
+          values:
+            - grafana
+  ingress:
+    enabled: true
